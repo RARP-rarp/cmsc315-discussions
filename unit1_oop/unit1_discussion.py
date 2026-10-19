@@ -24,9 +24,14 @@ from copy import copy, deepcopy
 #
 # Replace the pass statement with your implementation.
 
-class ParentClass:
-    pass
+class ItemClass:
+    state = "active"
 
+    def __init__(self, name, weight):
+        self.name = name
+        self.weight = weight
+    def tooltip(self):
+        print(f"Currently {self.state}")
 
 # TODO 2:
 # Create a child class that inherits from the parent class.
@@ -40,8 +45,15 @@ class ParentClass:
 #
 # Replace the pass statement with your implementation.
 
-class ChildClass(ParentClass):
-    pass
+class WeaponClass(ItemClass):
+    description = "Weapon"
+
+    def __init__(self, name, weight, attack_speed, damage):
+        super().__init__(name, weight)
+        self.attack_speed = attack_speed
+        self.damage = damage
+    def tooltip(self):
+        print(f"AS {self.attack_speed} DAM {self.damage}")
 
 
 # TODO 3:
@@ -55,9 +67,15 @@ class ChildClass(ParentClass):
 # - Display each object's namespace using __dict__.
 # - Display information about the class namespace.
 
-def demonstrate_namespaces():
+def demonstrate_namespaces(name1, weight1, attack_speed1, damage1, name2, weight2, attack_speed2, damage2):
     print("\n=== Namespace Demonstration ===")
-    print("TODO: Implement namespace demonstration")
+    first_weapon = WeaponClass(name1, weight1, attack_speed1, damage1)
+    second_weapon = WeaponClass(name2, weight2, attack_speed2, damage2)
+    print(f"WeaponClass description: {WeaponClass.description}")
+    print(f"first_weapon description: {first_weapon.description}")
+    first_weapon.nickname = "Thunder"
+    print("First Weapon: ", first_weapon.__dict__, "\nSecond Weapon: ", second_weapon.__dict__)
+    print("Weapon Class namespace information: ", WeaponClass.__dict__)
 
 
 # TODO 4:
@@ -71,9 +89,29 @@ def demonstrate_namespaces():
 # - Display the original object, shallow copy, and deep copy.
 # - Use comments to explain the difference between shallow and deep copying.
 
-def demonstrate_copying():
+def demonstrate_copying(given_list):
+    original_list = given_list
+    shallow_copied = copy(original_list)
+    deep_copied = deepcopy(original_list)
     print("\n=== Copy Demonstration ===")
-    print("TODO: Implement shallow copy and deep copy demonstration")
+    print(f"Original list: {original_list}")
+    print("Shallow copying")
+    print("Deep copying\n")
+    print("Modifying the deep copy, changing the first index to ten and second first index to zero")
+    deep_copied[0] = "ten"
+    deep_copied[2][0] = "zero"
+    print(f"Original list: {original_list}")
+    print(f"Deep copy: {deep_copied}")
+    print("The original and the deep copy are independent of each other!\n")
+    print("Modifying the shallow copy, changing the first index to nine and second first index to thirteen")
+    # Shallow copy only makes a new instance for the outer layer of list, but a reference entry for the inner lists.
+    shallow_copied[0] = "nine"
+    shallow_copied[2][0] = "thirteen"
+    print(f"Original list: {original_list}")
+    print(f"Shallow copy: {shallow_copied}")
+    print("Only the shallow copy is changed for the first index, but both second first indices have changed!")
+
+
 
 
 # TODO 5:
@@ -89,12 +127,14 @@ def demonstrate_copying():
 def main():
     print("=== Unit 1 OOP Assignment ===")
 
-    print("\nTODO: Create and test your parent object")
-
-    print("\nTODO: Create and test your child object")
-
-    demonstrate_namespaces()
-    demonstrate_copying()
+    print("\nCreate and test your parent object")
+    Item1 = ItemClass("Backpack", 4)
+    print(Item1.__dict__)
+    print("\nCreate and test your child object")
+    Left = WeaponClass("Dagger", 1, "three", "four")
+    print(Left.__dict__)
+    demonstrate_namespaces("Shotgun", 2, "five", "six", "Longsword", 3, "seven", "eight")
+    demonstrate_copying(["one", "two", ["eleven", "twelve"]])
 
 
 if __name__ == "__main__":
