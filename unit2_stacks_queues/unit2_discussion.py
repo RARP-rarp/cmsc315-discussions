@@ -71,7 +71,7 @@ class Queue:
         # TODO (Student): Return the front value without removing it.
         # Add a comment explaining what front returns.
         if len(self.queue_deque) > 0:
-            return self.queue_deque.queuelist[0]
+            return self.queue_deque[0]
         else:
             print('Queue is empty, cannot retrieve a value from an empty queue')
 
@@ -123,7 +123,7 @@ print("      and verify a single-item stack becomes empty after removal.")
 test_stack1 = Stack()
 test_stack1.push(5)
 print(f"Created a new stack with 1 element. Removed that 1 element. Element removed is: {test_stack1.pop()}")
-print(f"True or False. Stack is empty: {test_stack.is_empty()}")
+print(f"True or False. Stack is empty: {test_stack1.is_empty()}")
 # ===============================
 # TODO (Student): QUEUE DEMO
 # ===============================
@@ -160,7 +160,7 @@ print("      and verify a single-item queue becomes empty after removal.")
 test_queue1 = Queue()
 test_queue1.enqueue(6)
 print(f"Created a new queue with 1 element. Removed that 1 element. Element removed is: {test_queue1.dequeue()}")
-print(f"True or False. Queue is empty: {test_queue.is_empty()}")
+print(f"True or False. Queue is empty: {test_queue1.is_empty()}")
 
 if __name__ == "__main__":
     main()
